@@ -1,3 +1,4 @@
+import bttv
 import emotes
 
 
@@ -78,6 +79,25 @@ def test_api_error_payload_gives_no_results(api, rpc):
     api.payloads["search"] = {"message": "unauthorized"}
 
     assert rpc("query", "pog")["Result"] == []
+
+
+def test_unreachable_api_gives_no_results(api, monkeypatch, rpc):
+    def offline(*args, **kwargs):
+        raise bttv.requests.ConnectionError("offline")
+
+    monkeypatch.setattr(bttv.requests, "get", offline)
+
+    assert rpc("query", "pog")["Result"] == []
+
+
+def test_non_json_reply_gives_no_results(api, monkeypatch, rpc):
+    class HtmlResponse:
+        def json(self):
+            raise ValueError("Expecting value")
+
+    monkeypatch.setattr(bttv.requests, "get", lambda *args, **kwargs: HtmlResponse())
+
+    assert rpc("query", "")["Result"] == []
 
 
 def test_context_menu_opens_and_copies_the_emote(api, rpc):

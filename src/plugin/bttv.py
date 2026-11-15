@@ -12,8 +12,10 @@ def image_url(emote, size="1x"):
 
 
 def _get(endpoint, params):
-    response = requests.get(API_URL + endpoint, headers=HEADERS, params=params, timeout=TIMEOUT)
-    data = response.json()
+    try:
+        data = requests.get(API_URL + endpoint, headers=HEADERS, params=params, timeout=TIMEOUT).json()
+    except (requests.RequestException, ValueError):
+        return []
     if isinstance(data, dict):
         return []
     return data
