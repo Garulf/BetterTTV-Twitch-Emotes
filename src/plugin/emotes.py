@@ -1,15 +1,11 @@
 import asyncio
 import time
-import urllib.request
-from pathlib import Path
-from tempfile import gettempdir
 
 from pyflowlauncher import FlowLauncherV2, Plugin, Result
 
 import bttv
 
 TOP_EMOTES_MAX_AGE = 300
-ICON_DIR = Path(gettempdir(), "BetterTTV Twitch Emotes")
 
 plugin = Plugin(launcher=FlowLauncherV2())
 api = plugin.launcher.api
@@ -37,17 +33,6 @@ class TopEmotes:
 top_emotes = TopEmotes()
 
 
-def download_icon(emote):
-    path = ICON_DIR / f"{emote['id']}.{emote['imageType']}"
-    if not path.exists():
-        ICON_DIR.mkdir(parents=True, exist_ok=True)
-        try:
-            urllib.request.urlretrieve(bttv.image_url(emote), str(path))
-        except OSError:
-            plugin.logger.exception("Unable to download %s", bttv.image_url(emote))
-    return path
-
-
 async def in_thread(func, *args):
     return await asyncio.get_running_loop().run_in_executor(None, func, *args)
 
@@ -56,7 +41,7 @@ def emote_result(emote):
     return Result(
         title=emote["code"],
         subtitle=f"Streamer: {emote['user']['name']}",
-        icon=download_icon(emote),
+        icon=bttv.image_url(emote),
         context_data=[emote],
     ).add_action(copy_to_clipboard, [bttv.image_url(emote, "3x"), emote["code"]])
 

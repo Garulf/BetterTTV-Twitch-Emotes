@@ -53,19 +53,6 @@ def api(monkeypatch):
     return fake
 
 
-@pytest.fixture
-def downloads(monkeypatch, tmp_path):
-    fetched = []
-
-    def fake_urlretrieve(url, path):
-        fetched.append(url)
-        open(path, "wb").close()
-
-    monkeypatch.setattr(emotes, "ICON_DIR", tmp_path / "icons")
-    monkeypatch.setattr(emotes.urllib.request, "urlretrieve", fake_urlretrieve)
-    return fetched
-
-
 @pytest.fixture(autouse=True)
 def fresh_top_emotes(monkeypatch):
     monkeypatch.setattr(emotes, "top_emotes", emotes.TopEmotes())

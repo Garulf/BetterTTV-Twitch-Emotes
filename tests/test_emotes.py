@@ -5,7 +5,7 @@ def titles(response):
     return [result["Title"] for result in response["Result"]]
 
 
-def test_search_lists_matching_emotes(api, downloads, rpc):
+def test_search_lists_matching_emotes(api, rpc):
     response = rpc("query", "pog")
 
     assert titles(response) == ["pogDance", "pogWave"]
@@ -15,11 +15,25 @@ def test_search_lists_matching_emotes(api, downloads, rpc):
     assert first["ContextData"][0]["code"] == "pogDance"
 
 
-def test_enter_copies_the_large_image_url(api, downloads, rpc):
+def test_enter_copies_the_large_image_url(api, rpc):
     action = rpc("query", "pog")["Result"][0]["JsonRPCAction"]
 
     assert action["Method"] == "copy_to_clipboard"
     assert action["Parameters"] == ["https://cdn.betterttv.net/emote/5f1b0186cf6d2144653d2970/3x.gif", "pogDance"]
+
+
+def test_results_use_remote_icons_without_downloading_them(api, monkeypatch, rpc):
+    def fail(*args, **kwargs):
+        raise AssertionError("emote images must not be downloaded during a query")
+
+    monkeypatch.setattr("urllib.request.urlretrieve", fail)
+
+    response = rpc("query", "pog")
+
+    assert [result["IcoPath"] for result in response["Result"]] == [
+        "https://cdn.betterttv.net/emote/5f1b0186cf6d2144653d2970/1x.gif",
+        "https://cdn.betterttv.net/emote/5e0fa9d40550d42106b8a489/1x.png",
+    ]
 
 
 def test_short_query_asks_for_more_characters(api, rpc):
@@ -30,7 +44,7 @@ def test_short_query_asks_for_more_characters(api, rpc):
     assert api.calls == []
 
 
-def test_empty_query_lists_top_emotes(api, downloads, rpc):
+def test_empty_query_lists_top_emotes(api, rpc):
     response = rpc("query", "")
 
     assert titles(response) == ["coffeeTime"]
@@ -60,13 +74,13 @@ def test_empty_top_emotes_are_not_cached(api):
     assert len(api.calls) == 2
 
 
-def test_api_error_payload_gives_no_results(api, downloads, rpc):
+def test_api_error_payload_gives_no_results(api, rpc):
     api.payloads["search"] = {"message": "unauthorized"}
 
     assert rpc("query", "pog")["Result"] == []
 
 
-def test_context_menu_opens_and_copies_the_emote(api, downloads, rpc):
+def test_context_menu_opens_and_copies_the_emote(api, rpc):
     emote = rpc("query", "pog")["Result"][0]["ContextData"]
 
     menu = rpc("context_menu", emote)["Result"]
