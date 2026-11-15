@@ -1,2 +1,2 @@
-flox-lib==0.10.4
-requests==2.25.0
+pyflowlauncher[all]==1.2.2
+requests==2.32.4
