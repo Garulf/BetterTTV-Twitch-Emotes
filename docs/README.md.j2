@@ -1,0 +1,67 @@
+{% extends "base.md.j2" %}
+
+{% block usage %}
+## Features
+
+* **Search shared emotes.** Find BetterTTV emotes by name.
+* **Top emotes.** Leave the search empty to see the most used emotes.
+* **One key to copy.** `Enter` copies the emote's image link, ready to paste into chat or Discord.
+* **Quick actions.** Open the emote in your browser from the context menu.
+
+## Usage
+
+Type `te` followed by at least three characters of an emote name:
+
+```
+te pog
+```
+
+{{ screenshot("search", alt="BetterTTV emote search results in Flow Launcher") }}
+
+Type `te` on its own to list the top emotes. They are refreshed every five minutes:
+
+{{ screenshot("top", alt="Top BetterTTV emotes in Flow Launcher") }}
+
+| Key | Action |
+| --- | --- |
+| `Enter` | Copy the emote's image link |
+| `Shift+Enter` | Context menu: open the emote in your browser or copy its link |
+
+## Installation
+
+### Flow Launcher
+
+In Flow Launcher, type:
+
+```
+pm install betterttv-twitch-emotes
+```
+
+{{ screenshot("install", alt="Flow Launcher plugin manager installing BetterTTV Twitch Emotes") }}
+
+### Manual installation
+
+Download `BetterTTV-Twitch-Emotes-<version>.zip` from the [latest release]({{ project.url }}/releases/latest) and unzip it into
+`%appdata%\FlowLauncher\Plugins`, then restart Flow Launcher.
+
+Pre-releases of the next version are published from the open release PR on the
+[releases page]({{ project.url }}/releases) for testing. Flow Launcher won't offer them as updates.
+
+## Requirements
+
+* Flow Launcher 1.17.0 or newer
+* Python 3.8 or newer, which Flow Launcher can install for you
+{% set recent_changes = changelog(3) %}{% if recent_changes | trim %}
+
+## Changelog
+
+{{ recent_changes }}
+
+See [CHANGELOG.md](CHANGELOG.md) for the full history.
+{% endif %}
+{% endblock %}
+
+{% block screenshots %}{% endblock %}
+{% block install %}{% endblock %}
+{% block contributing %}{% endblock %}
+{% block license %}{% endblock %}

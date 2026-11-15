@@ -1,0 +1,26 @@
+{
+  "keyword": "te",
+  "query": "pog",
+  "icon": "../../data/icon.png",
+  "max_results": 3,
+  "selection": 0,
+  "results": [
+    {
+      "title": "pogFace",
+      "subtitle": "Streamer: pixel_paws",
+      "icon": "emotes/pogFace.png"
+    },
+    {
+      "title": "pogDance",
+      "subtitle": "Streamer: streamer_one",
+      "icon": "emotes/pogDance.png"
+    },
+    {
+      "title": "pogWave",
+      "subtitle": "Streamer: cozy_corner",
+      "icon": "emotes/pogWave.png"
+    }
+  ],
+  "query_suggestion": "",
+  "show_caret": true
+}

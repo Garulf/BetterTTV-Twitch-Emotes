@@ -1,0 +1,12 @@
+{
+  "ID": "62A7E77D5AC84177AF902C4A5FF10603",
+  "ActionKeyword": "te",
+  "Name": "BetterTTV Twitch Emotes",
+  "Description": "Search Twitch.tv emotes via BetterTTV",
+  "Author": "Garulf",
+  "Version": "0.0.2",
+  "Language": "python_v2",
+  "Website": "https://github.com/Garulf/BetterTTV-Twitch-Emotes",
+  "IcoPath": "icon.png",
+  "ExecuteFileName": "run.py"
+}

@@ -1,0 +1,31 @@
+{
+  "keyword": "te",
+  "query": "",
+  "icon": "../../data/icon.png",
+  "max_results": 4,
+  "selection": 0,
+  "results": [
+    {
+      "title": "coffeeTime",
+      "subtitle": "Streamer: cozy_corner",
+      "icon": "emotes/coffeeTime.png"
+    },
+    {
+      "title": "hypeTrain",
+      "subtitle": "Streamer: rail_runner",
+      "icon": "emotes/hypeTrain.png"
+    },
+    {
+      "title": "ggBubble",
+      "subtitle": "Streamer: speedy_sam",
+      "icon": "emotes/ggBubble.png"
+    },
+    {
+      "title": "sadKitty",
+      "subtitle": "Streamer: pixel_paws",
+      "icon": "emotes/sadKitty.png"
+    }
+  ],
+  "query_suggestion": "",
+  "show_caret": false
+}
