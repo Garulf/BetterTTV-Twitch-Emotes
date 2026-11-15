@@ -64,7 +64,6 @@ class FakeHost:
 
     async def request(self, method, params, timeout=None):
         self.requests.append((method, params))
-        return None
 
 
 @pytest.fixture
